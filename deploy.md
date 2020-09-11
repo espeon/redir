@@ -1,6 +1,7 @@
+# deployment directions
 so, first you'll need a faunadb database. 
 
-once you make an account, click "new database" and for the database name, fill in whatever.
+once you make an account, click "new database" and for the database name, whatever is fine.
 
 then you'll need to make a collection. once in your db dashboard, click collections > new collection.
 
@@ -13,7 +14,7 @@ call your index `urls_by_key` and under terms, enter `data.key` and under values
 next, go to the security tab and click new key. click save, then copy the key it gives you and save it somewhere important.
 
 
-rename env.example to .env and fill in your `db_key` (created in the last step) and your `auth` key (whatever is fine).
+rename `env.example` to `.env` and fill in your `db_key` (created in the last step) and your `auth` key (whatever is fine).
 
 
 now you can deploy!
