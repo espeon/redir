@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "builds": [{
+    "src": "/**/*.js",
+    "use": "@now/node"
+  }],
+  "routes":[
+  { "src": "create", "dest": "/create.js" },
+  { "src": "/(?<id>[^/]*)", "dest": "/index.js?id=$id" }
+  ]
+}
