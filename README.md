@@ -11,4 +11,4 @@ read [deploy.md](https://github.com/kanbaru/redir/blob/main/deploy.md), it's kin
 not sure exactly how right now. feel free to submit pull requests though.
 
 ## i have other questions! is there anywhere i can ask?
-you can ask in my discord (https://discord.com/invite/bV5nBK7), in the channel #iriie-general!
+you can ask in my discord (https://discord.gg/bV5nBK7), in the channel #iriie-general!
