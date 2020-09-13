@@ -5,9 +5,9 @@ const client = new faunadb.Client({
 var q = faunadb.query
 
 module.exports = async (req, res) => {
-    const { key, url, auth } = req.query
+    const { key, auth } = req.query
     if (auth !== process.env.auth) return res.status(405).json("creator endpoint")
-    if (!(key && url && auth)) return res.status(405).json("AUTH error")
+    if (!(key && auth)) return res.status(405).json("AUTH error")
     if (key == "create") res.json("create is a protected endpoint.")
     let msg
     let check = await client.query(
