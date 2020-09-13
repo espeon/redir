@@ -27,15 +27,18 @@ module.exports = async (req, res) => {
         return del(req, res);
       case "OPTIONS": break;
       default:
+        if(id === "create"){
+          return create(req, res);
+        }
         let msg = await client.query(
           q.Paginate(
             q.Match(
               q.Index('urls_by_key'), id
             )
           )
-        )
+        );
         // if a key isn't found we just throw
-        if (!msg.data[0]) throw "no data";
+        if (!msg.data[0]) throw "";
         // redirects us where we want idfk
         return res.redirect(307, msg.data[0][0]);
     }

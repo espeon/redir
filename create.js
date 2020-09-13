@@ -7,8 +7,9 @@ var q = faunadb.query
 module.exports = async (req, res) => {
     const { key, url, auth } = req.query
     if (auth !== process.env.auth) return res.status(405).json("creator endpoint") // we check if our **secret** (ooo) password is correct
-    if (!(key && url && auth)) return res.status(405).json("K/V Error") // if it is we check whether we have the other required things
-    if(key == "create") res.status(405).json("create is a protected endpoint.")
+    if (!(key && url && auth)) return res.status(405).json(genErr("KV Error", "One of the values required is missing.")) // if it is we check whether we have the other required things
+    if (!validURL(url)) return res.status(405).json(genErr("Invalid URL", "The URL does not look like a valid URL."))
+    if (key == "create") res.status(405).json(genErr("Protected Endpoint", "This endpoint is used for management, so it cannot be used for forwarding."))
     let msg // our eventual result
     // we check whether we already have a key in the database.
     let check = await client.query(
@@ -37,7 +38,29 @@ module.exports = async (req, res) => {
             q.Create(q.Collection("urls"), { data: { key: key, value: url } })
         ).catch(async err => {
             console.log(err)
+            res.status(405).json(genErr("Error", err))
         })
     }
     res.json(msg);
+}
+
+function validURL(str) {
+    var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+        '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+        '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+    return !!pattern.test(str);
+}
+
+function genErr(err, flavor) {
+    let errMsg = {
+        ts: 0,
+        data: {
+            key: err,
+            value: flavor
+        }
+    }
+    return errMsg;
 }
