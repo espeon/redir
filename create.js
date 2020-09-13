@@ -6,6 +6,7 @@ var q = faunadb.query
 
 module.exports = async (req, res) => {
     const { key, url, auth } = req.query
+    console.log(req.query)
     if (auth !== process.env.auth) return res.status(405).json("creator endpoint") // we check if our **secret** (ooo) password is correct
     if (!(key && url && auth)) return res.status(405).json(genErr("KV Error", "One of the values required is missing.")) // if it is we check whether we have the other required things
     if (!validURL(url)) return res.status(405).json(genErr("Invalid URL", "The URL does not look like a valid URL."))

@@ -17,8 +17,8 @@ module.exports = async (req, res) => {
   // if DELETE or POST is used we need these 
   if(req.method !== "GET")
   req.query.auth = req.headers.authorization.replace("Bearer ", "");
-  req.query.url = req.headers.url;
-  req.query.key = id;
+  req.query.url = req.headers.url? req.headers.url:req.query.url;
+  req.query.key = req.query.key?req.query.key:id;
   try {
     switch (req.method) {
       case "POST":

@@ -6,7 +6,7 @@ var q = faunadb.query
 
 module.exports = async (req, res) => {
     const { key, auth } = req.query
-    if (auth !== process.env.auth) return res.status(405).json("creator endpoint")
+    if (auth !== process.env.auth) return res.status(405).json("deleter endpoint")
     if (!(key && auth)) return res.status(405).json("AUTH error")
     if (key == "create") res.json("create is a protected endpoint.")
     let msg
@@ -20,6 +20,7 @@ module.exports = async (req, res) => {
             )
         )
     )
+    if(check.data[0] == undefined) return res.status(405).json("key unavailable for deletion")
     console.log("deleting", check.data[0][1])
     msg = await client.query(
         q.Delete(check.data[0][1])
