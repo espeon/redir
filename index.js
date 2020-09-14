@@ -1,6 +1,7 @@
 import faunadb from 'faunadb';
 import del from "./delete.js"; //i think delete is a special variable?
 import create from './create';
+
 const client = new faunadb.Client({
   secret: process.env.db_key
 });
@@ -39,8 +40,9 @@ module.exports = async (req, res) => {
         );
         // if a key isn't found we just throw
         if (!msg.data[0]) throw "";
+
+        return res.redirect(301, msg.data[0][0]);
         // redirects us where we want idfk
-        return res.redirect(307, msg.data[0][0]);
     }
   } catch (c) {
     // log and redirect to somewhere else
