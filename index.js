@@ -41,7 +41,7 @@ module.exports = async (req, res) => {
         // if a key isn't found we just throw
         if (!msg.data[0]) throw "";
 
-        return res.redirect(301, msg.data[0][0]);
+        return res.redirect(302, msg.data[0][0]);
         // redirects us where we want idfk
     }
   } catch (c) {
