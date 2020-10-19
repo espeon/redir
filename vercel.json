@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "regions": ["iad1"],
   "builds": [{
     "src": "/**/*.js",
     "use": "@now/node"

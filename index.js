@@ -40,7 +40,8 @@ module.exports = async (req, res) => {
         );
         // if a key isn't found we just throw
         if (!msg.data[0]) throw "";
-
+        res.setHeader('cache-control', 's-maxage=3600, stale-while-revalidate')
+        res.setHeader("emma-has-a-discord-server", "link: https://r.izu.moe/discord")
         return res.redirect(302, msg.data[0][0]);
         // redirects us where we want idfk
     }
