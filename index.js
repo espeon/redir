@@ -41,7 +41,9 @@ module.exports = async (req, res) => {
         // if a key isn't found we just throw
         if (!msg.data[0]) throw "";
         res.setHeader('cache-control', 's-maxage=3600, stale-while-revalidate')
+        res.setHeader('x-vercel-region', getVercelRegion())
         res.setHeader("emma-has-a-discord-server", "link: https://r.izu.moe/discord")
+        console.log(process.env)
         return res.redirect(302, msg.data[0][0]);
         // redirects us where we want idfk
     }
@@ -50,4 +52,12 @@ module.exports = async (req, res) => {
     console.log(c)
     return res.redirect("https://emma.iscute.dev")
   }
+}
+
+let getVercelRegion = () => {
+  let region = process.env.AWS_REGION?process.env.AWS_REGION: undefined
+  if (process.env.NOW_REGION) region = process.env.NOW_REGION
+  if (process.env.VERCEL_REGION) region = process.env.VERCEL_REGION
+  if (region == undefined) region = "Could not get region"
+  return region
 }
