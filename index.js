@@ -42,7 +42,7 @@ module.exports = async (req, res) => {
         if (!msg.data[0]) throw "";
         res.setHeader('cache-control', 's-maxage=3600, stale-while-revalidate')
         res.setHeader('x-vercel-region', getVercelRegion())
-        res.setHeader("emma-has-a-discord-server", "link: https://r.izu.moe/discord")
+        res.setHeader("natalie-has-a-discord-server", "link: https://r.izu.moe/discord")
         console.log(process.env)
         return res.redirect(302, msg.data[0][0]);
         // redirects us where we want idfk
@@ -50,7 +50,7 @@ module.exports = async (req, res) => {
   } catch (c) {
     // log and redirect to somewhere else
     console.log(c)
-    return res.redirect("https://emma.iscute.dev")
+    return res.redirect("https://natalie.sh")
   }
 }
 
